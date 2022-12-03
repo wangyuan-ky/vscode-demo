@@ -1,26 +1,23 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
+import * as vscode from "vscode"
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
+  // 这里执行插件被激活时的操作
+  console.log("我被激活啦啦啦")
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "vscode-demo" is now active!');
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('vscode-demo.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from vscode-demo!');
-	});
-
-	context.subscriptions.push(disposable);
+  // 1: 定义了一个命令(vscode.commands)
+  // 2: vscode-demo.helloWorld 可以把它当做id
+  let disposable = vscode.commands.registerCommand(
+    "vscode-demo.helloWorld",
+    () => {
+      // 触发了一个弹出框
+      vscode.window.showInformationMessage("第一个demo弹出信息!")
+      vscode.window.showWarningMessage("第一个警告信息")
+      vscode.window.showErrorMessage("第一个错误信息!")
+    }
+  )
+  // 把这个对象放入上下文中, 使其生效
+  context.subscriptions.push(disposable)
 }
 
-// This method is called when your extension is deactivated
+// 插件被销毁时调用的方法, 比如可以清除一些缓存, 释放一些内存
 export function deactivate() {}
